@@ -1,0 +1,3 @@
+buzzer = 21
+LED Green = 20
+LED Red = 16
