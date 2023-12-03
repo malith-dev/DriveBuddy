@@ -6,6 +6,8 @@ import sys
 from pathlib import Path
 import torch
 import buzzer
+import drivers
+import speed
 
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]  # YOLOv5 root directory
@@ -21,7 +23,7 @@ from utils.general import (LOGGER, Profile, check_file, check_img_size, check_im
                            increment_path, non_max_suppression, print_args, scale_boxes, strip_optimizer, xyxy2xywh)
 from utils.torch_utils import select_device, smart_inference_mode
 
-
+display = drivers.Lcd()
 
 @smart_inference_mode()
 def detect(
@@ -56,7 +58,7 @@ def detect(
         dnn=False,  # use OpenCV DNN for ONNX inference
         vid_stride=1,  # video frame-rate stride
 ):
-    
+    buzzer.alert()
     names: ['50kmph', 'traffic_light_green', 'pedestrian-crossing', 'traffic_light_red']
     current_class_name = None
     source = str(source)
@@ -162,6 +164,9 @@ def detect(
                     if current_class_name:
                         print("Class name :", current_class_name)
                         buzzer.alert()
+                        display.lcd_display_string(str(current_class_name), 2)
+                    if current_class_name and current_class_name == "50kmph":
+                        speed.set_speed_limit(True)
                     ####################################################
                     if save_csv:
                         write_to_csv(p.name, label, confidence_str)

@@ -21,6 +21,10 @@ def buzzer():
 def buzzerStop():
     GPIO.output(buzzer_pin, GPIO.LOW)
     
+    
+def buzzerContinue():
+    GPIO.output(buzzer_pin, GPIO.HIGH)
+    
 def alert():
     GPIO.output(buzzer_pin, GPIO.HIGH)
     time.sleep(0.1)

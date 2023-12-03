@@ -23,9 +23,8 @@ def run_detection_and_speed():
         # Call your detection function
         current_class_name = detection.detect(**vars())
         # Process the detected class, check for speed limit signs, and speed from GPS
-        if current_class_name and current_class_name == "50kmph":
+        #if current_class_name and current_class_name == "50kmph":
             
-            current_speed = speed.get_speed()
             #print("current speed is: ".current_speed)
             # Compare current_speed with the speed limit and trigger an alert if exceeded
             
