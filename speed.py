@@ -2,6 +2,7 @@ import serial
 import time
 import drivers
 import buzzer
+import record
 
 # Define the serial port and baud rate
 serial_port = '/dev/ttyS0'  # Replace with the correct COM port on your PC
@@ -38,6 +39,7 @@ def get_speed():
                             display.lcd_display_string(str(rounded_speed)+" Kmph", 1)
                             if speedLimit and rounded_speed and rounded_speed >= 50.0:
                                 buzzer.buzzerContinue()
+                                record.write_to_csv(rounded_speed)
                             else:
                                 buzzer.buzzerStop()
                             
